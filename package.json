@@ -1,0 +1,25 @@
+{
+  "name": "linkedin-chrome-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension for LinkedIn",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "lint": "eslint 'src/**/*.{ts}'"
+  },
+  "keywords": [],
+  "author": "Viktor Kyporenko",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.269",
+    "copy-webpack-plugin": "^12.0.2",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
