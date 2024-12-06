@@ -2,23 +2,23 @@
   setTimeout(() => {
     const jobTitles = getJobTitlesOfSearchers();
     if (jobTitles.length === 0) return;
-    const appearenceNumber = getApearenceNumber();
+    const appearanceNumber = getAppearanceNumber();
     const jobTitlesBlockTitle = getJobTitlesBlockTitle();
     try {
-      jobTitlesBlockTitle.textContent = `${jobTitlesBlockTitle.innerText} (${appearenceNumber})`;
+      jobTitlesBlockTitle.textContent = `${jobTitlesBlockTitle.innerText} (${appearanceNumber})`;
     } catch (error) {
       console.error(`Failed to set textContent for jobTitlesBlockTitle.\nError: ${error}\nData: ${jobTitlesBlockTitle}`);
     }
 
-    updateJobTitles(jobTitles, appearenceNumber);
+    updateJobTitles(jobTitles, appearanceNumber);
   }, 3000);
 })();
 
-function getApearenceNumber(): number {
+function getAppearanceNumber(): number {
   const selector = '.member-analytics-addon-summary__list-item div p';
-  const apearenceNumberElement = document.querySelector(selector) as HTMLElement;
-  if (!apearenceNumberElement) throw new Error('apearenceNumber element not found on the page');
-  return +apearenceNumberElement.innerText;
+  const appearanceNumberElement = document.querySelector(selector) as HTMLElement;
+  if (!appearanceNumberElement) throw new Error('appearanceNumber element not found on the page');
+  return +appearanceNumberElement.innerText;
 }
 
 function getJobTitlesOfSearchers(): NodeListOf<HTMLElement> {
@@ -38,28 +38,28 @@ function getJobTitlesBlockTitle(): HTMLElement {
   throw new Error('Title of Job Titles block not found on the page');
 }
 
-function updateJobTitles(jobTitles: NodeListOf<HTMLElement>, appearenceNumber: number): void {
+function updateJobTitles(jobTitles: NodeListOf<HTMLElement>, appearanceNumber: number): void {
   try {
-    let unknownJobRolesPersantage = 100;
-    let unknownJobRolesNumber = appearenceNumber;
+    let unknownJobRolesPercentage = 100;
+    let unknownJobRolesNumber = appearanceNumber;
 
     for (let i = 0; i < jobTitles.length; i++) {
       const addonBarChartSelector = '.member-analytics-addon-bar-chart__bar';
       const addonBarChart = document.querySelectorAll(addonBarChartSelector) as NodeListOf<HTMLElement>;
 
       const jobTitleInfo = jobTitles[i].innerText;
-      const splitedPosition = jobTitleInfo.lastIndexOf(' ');
-      const persent = jobTitleInfo.slice(splitedPosition + 1, jobTitleInfo.length - 1);
-      const persentage = +persent.replace('%', '');
-      unknownJobRolesPersantage -= persentage;
-      addonBarChart[i].style.width = persent + '%';
-      const percentOfOneNumber = 100 / appearenceNumber;
-      const titleNumber = Math.round(persentage / percentOfOneNumber);
+      const splitPosition = jobTitleInfo.lastIndexOf(' ');
+      const percent = jobTitleInfo.slice(splitPosition + 1, jobTitleInfo.length - 1);
+      const percentage = +percent.replace('%', '');
+      unknownJobRolesPercentage -= percentage;
+      addonBarChart[i].style.width = percent + '%';
+      const percentOfOneNumber = 100 / appearanceNumber;
+      const titleNumber = Math.round(percentage / percentOfOneNumber);
       unknownJobRolesNumber -= titleNumber;
       jobTitles[i].textContent = `${jobTitleInfo} (${titleNumber})`;
     }
 
-    addJobTitleInfoRow('UNKNOWN JOB TITLES', Math.round(unknownJobRolesPersantage), unknownJobRolesNumber);
+    addJobTitleInfoRow('UNKNOWN JOB TITLES', Math.round(unknownJobRolesPercentage), unknownJobRolesNumber);
   } catch (error) {
     console.error(`Updating job titles failed: ${error}`);
   }
