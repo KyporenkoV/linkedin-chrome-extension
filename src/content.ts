@@ -7,7 +7,9 @@
     try {
       jobTitlesBlockTitle.textContent = `${jobTitlesBlockTitle.innerText} (${appearanceNumber})`;
     } catch (error) {
-      console.error(`Failed to set textContent for jobTitlesBlockTitle.\nError: ${error}\nData: ${jobTitlesBlockTitle}`);
+      console.error(
+        `Failed to set textContent for jobTitlesBlockTitle.\nError: ${error}\nData: ${jobTitlesBlockTitle}`,
+      );
     }
 
     updateJobTitles(jobTitles, appearanceNumber);
@@ -67,8 +69,8 @@ function updateJobTitles(jobTitles: NodeListOf<HTMLElement>, appearanceNumber: n
 
 function addJobTitleInfoRow(title: string, percentage: number, number: number) {
   try {
-    const jobTitlesParent = document.querySelector('[aria-labelledby="member-analytics-addon-card-4"]');
-    if (!jobTitlesParent) throw new Error('Parent element of job titles row does not found');
+    const infoBlocks = document.querySelectorAll('[aria-labelledby*="member-analytics-addon-card-"]');
+    const jobTitlesParent = infoBlocks[infoBlocks.length - 1];
     const row = document.getElementsByClassName('member-analytics-addon-bar-chart__row');
     const newRow = row[row.length - 1].cloneNode(true) as Document;
 
